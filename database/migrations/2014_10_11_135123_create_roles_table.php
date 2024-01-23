@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('role', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             //line di bawah menambahkan kolom 'id' sebagai primary key, yang biasanya digunakan sebagai identifikasi unik untuk setiap record dalam tabel.
             $table->id();
             //atribut name untuk menyimpan nama (role).

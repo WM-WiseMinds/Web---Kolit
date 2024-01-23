@@ -15,7 +15,7 @@ return new class extends Migration
             // Kolom id sebagai primary key (kunci utama) yang memberikan identifikasi unik untuk setiap record dalam tabel.
             $table->id();
             // Kolom ini adalah kunci luar yang terhubung dengan tabel 'user' dengan opsi 'cascade' pada saat penghapusan.
-            $table->foreignId('user_id')->constrained('user')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             // Kolom untuk menyimpan kode transaksi dengan panjang maksimum 100 karakter.
             $table->string('kode_transaksi', 100);
             // Kolom untuk menyimpan total harga transaksi (angka bulat).

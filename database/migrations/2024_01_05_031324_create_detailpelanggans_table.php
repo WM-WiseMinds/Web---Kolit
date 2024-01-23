@@ -15,7 +15,7 @@ return new class extends Migration
             // Kolom 'id' digunakan sebagai primary key (kunci utama) untuk memberikan identifikasi unik kepada setiap record dalam tabel.
             $table->id();
             // Kolom 'user_id' adalah kunci luar (foreign key) yang terhubung dengan tabel 'user'.
-            $table->foreignId('user_id')->constrained('user');
+            $table->foreignId('user_id')->constrained('users');
             // Kolom 'no_wa' digunakan untuk menyimpan nomor WhatsApp dengan panjang maksimum 15 karakter.
             $table->string('no_wa', 15);
             // Kolom 'alamat' digunakan untuk menyimpan alamat dengan tipe data string.

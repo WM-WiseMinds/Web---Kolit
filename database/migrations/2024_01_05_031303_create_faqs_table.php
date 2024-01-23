@@ -15,7 +15,7 @@ return new class extends Migration
             // Kolom 'id' digunakan sebagai primary key (kunci utama) untuk memberikan identifikasi unik kepada setiap item pertanyaan dalam tabel.
             $table->id();
             // Kolom 'user_id' adalah kunci luar (foreign key) yang terhubung dengan tabel 'user'.
-            $table->foreignId('user_id')->constrained('user');
+            $table->foreignId('user_id')->constrained('users');
             // Kolom 'pertanyaan' digunakan untuk menyimpan teks pertanyaan dalam bentuk teks (text).
             $table->text('pertanyaan');
             // Kolom 'jawaban' digunakan untuk menyimpan teks jawaban dalam bentuk teks (text).

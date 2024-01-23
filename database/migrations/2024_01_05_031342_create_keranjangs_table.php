@@ -15,7 +15,7 @@ return new class extends Migration
             // Kolom 'id' digunakan sebagai primary key (kunci utama) untuk memberikan identifikasi unik kepada setiap record dalam tabel.
             $table->id();
             // Kolom 'user_id' adalah kunci luar (foreign key) yang terhubung dengan tabel 'user' dan mengaktifkan opsi 'cascade' pada saat penghapusan.
-            $table->foreignId('user_id')->constrained('user')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             // Kolom 'barang_id' adalah kunci luar (foreign key) yang terhubung dengan tabel 'barang' dan mengaktifkan opsi 'cascade' pada saat penghapusan.
             $table->foreignId('barang_id')->constrained('barang')->onDelete('cascade');
             // Kolom 'ukuran_id' adalah kunci luar (foreign key) yang terhubung dengan tabel 'ukuran' dan mengaktifkan opsi 'cascade' pada saat penghapusan.
