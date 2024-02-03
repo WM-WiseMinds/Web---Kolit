@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Roles extends Model
 {
     use HasFactory;
-    
+
     // Mendefinisikan nama tabel yang terkait dengan model 'Role' menjadi 'roles'.
     protected $table = 'roles';
 
@@ -21,7 +21,7 @@ class Roles extends Model
     // yang mengindikasikan hubungan banyak-ke-banyak antara role dan izin (permissions).
     public function permissions()
     {
-        return $this->belongsToMany(Permissions::class, 'role_permission', 'roles_id', 'permissions_id');
+        return $this->belongsToMany(Permissions::class, 'role_permissions', 'role_id', 'permission_id');
     }
 
     // Mendefinisikan bahwa model 'Role' memiliki relasi "hasMany" dengan model 'User',

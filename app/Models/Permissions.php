@@ -21,6 +21,6 @@ class Permissions extends Model
     // yang mengindikasikan hubungan banyak-ke-banyak antara izin (permissions).
     public function permissions()
     {
-        return $this->belongsToMany(Permissions::class, 'roles_permissions', 'permissions_id', 'roles_id');
+        return $this->belongsToMany(Permissions::class, 'role_permissions', 'permission_id', 'role_id');
     }
 }
