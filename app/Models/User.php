@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
@@ -17,6 +18,7 @@ class User extends Authenticatable
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
+    use HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -24,15 +26,14 @@ class User extends Authenticatable
      * @var array<int, string>
      */
 
-     // Mendefinisikan nama tabel yang terkait dengan model 'User' menjadi 'users'.
+    // Mendefinisikan nama tabel yang terkait dengan model 'User' menjadi 'users'.
     protected $table = 'users';
-    
+
     // Mendefinisikan kolom-kolom yang dapat diisi (fillable) pada model 'User'.
     protected $fillable = [
         'name',
         'email',
         'password',
-        'role_id',
     ];
 
     /**
@@ -71,13 +72,6 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    // Mendefinisikan bahwa model 'User' memiliki relasi "belongsTo" dengan model 'Roles',
-    // yang mengindikasikan bahwa setiap User terkait dengan satu Role.
-    public function roles()
-    {
-        return $this->belongsTo(Roles::class, 'role_id');
-    }
-
     // Mendefinisikan bahwa model 'User' memiliki relasi "hasMany" dengan model 'Transaksi',
     // yang mengindikasikan bahwa satu User dapat memiliki banyak Transaksi.
     public function transaksi()
@@ -105,5 +99,4 @@ class User extends Authenticatable
     {
         return $this->hasOne(Detailpelanggan::class);
     }
-
 }

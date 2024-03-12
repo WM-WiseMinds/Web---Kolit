@@ -6,6 +6,7 @@ use App\Models\Roles;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Masmerise\Toaster\Toastable;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
 use PowerComponents\LivewirePowerGrid\Exportable;
@@ -16,10 +17,12 @@ use PowerComponents\LivewirePowerGrid\PowerGrid;
 use PowerComponents\LivewirePowerGrid\PowerGridFields;
 use PowerComponents\LivewirePowerGrid\PowerGridComponent;
 use PowerComponents\LivewirePowerGrid\Traits\WithExport;
+use Spatie\Permission\Models\Role;
 
 final class RolesTable extends PowerGridComponent
 {
     use WithExport;
+    use Toastable;
 
     public function setUp(): array
     {
@@ -38,11 +41,7 @@ final class RolesTable extends PowerGridComponent
 
     public function datasource(): Builder
     {
-        return Roles::query()
-            ->leftJoin('role_permissions', 'roles.id', '=', 'role_permissions.role_id')
-            ->leftJoin('permissions', 'role_permissions.permission_id', '=', 'permissions.id')
-            ->groupBy('roles.id', 'roles.name', 'roles.created_at') // Tambahkan semua kolom yang Anda pilih dari tabel `roles` di sini
-            ->selectRaw('roles.id, roles.name, roles.created_at, GROUP_CONCAT(permissions.name SEPARATOR ", ") as permissions');
+        return Role::query()->with('permissions');
     }
 
     public function relationSearch(): array
@@ -55,6 +54,9 @@ final class RolesTable extends PowerGridComponent
         return PowerGrid::fields()
             ->add('id')
             ->add('name')
+            ->add('permissions', function ($row) {
+                return $row->permissions->pluck('name')->implode(', ');
+            })
             ->add('created_at');
     }
 
@@ -80,13 +82,7 @@ final class RolesTable extends PowerGridComponent
         return [];
     }
 
-    #[\Livewire\Attributes\On('edit')]
-    public function edit($rowId): void
-    {
-        $this->js('alert(' . $rowId . ')');
-    }
-
-    public function actions(\App\Models\Roles $row): array
+    public function actions(Role $row): array
     {
         return [
             Button::add('edit')
@@ -162,9 +158,11 @@ final class RolesTable extends PowerGridComponent
     // Function to delete data
     public function delete($rowId)
     {
-        $role = Roles::findOrFail($rowId);
+        $role = Role::findOrFail($rowId);
         // Detach all associated permissions
         $role->permissions()->detach();
         $role->delete();
+
+        $this->success('Role telah berhasil dihapus.');
     }
 }

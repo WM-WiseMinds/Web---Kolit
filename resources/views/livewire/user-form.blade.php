@@ -45,12 +45,12 @@
                 <div class="mb-4">
                     <label for="exampleFormControlInput4"
                         class="block text-gray-700 text-sm font-bold mb-2">Role</label>
-                    <select wire:model="role_id"
+                    <select wire:model="role_name"
                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         id="exampleFormControlInput4">
                         <option value="">Choose Role</option>
                         @foreach ($roles as $role)
-                            <option value="{{ $role->id }}">{{ $role->name }}</option>
+                            <option value="{{ $role->name }}">{{ $role->name }}</option>
                         @endforeach
                     </select>
                     @error('role_id')
