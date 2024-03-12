@@ -41,4 +41,8 @@ Route::middleware([
     Route::get('/pelanggan', function () {
         return view('pelanggan');
     })->name('pelanggan');
+
+    Route::get('/barang', function () {
+        return view('barang');
+    })->name('barang');
 });

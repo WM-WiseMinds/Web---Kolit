@@ -20,11 +20,6 @@ class Barang extends Model
         'status',
     ];
 
-    // Mendefinisikan tipe data dari kolom 'keterangan' sebagai 'text'.
-    protected $casts = [
-        'keterangan' => 'text',
-    ];
-
     // Mendefinisikan relasi 'keranjang' dimana 'Barang' memiliki banyak 'Keranjang'.
     public function keranjang()
     {
