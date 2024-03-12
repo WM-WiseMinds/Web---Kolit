@@ -49,4 +49,8 @@ Route::middleware([
     Route::get('/portfolio', function () {
         return view('portfolio');
     })->name('portfolio');
+
+    Route::get('/keranjang', function () {
+        return view('keranjang');
+    })->name('keranjang');
 });
