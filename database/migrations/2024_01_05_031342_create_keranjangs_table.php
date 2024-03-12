@@ -22,10 +22,10 @@ return new class extends Migration
             $table->foreignId('ukuran_id')->nullable()->constrained('ukuran')->onDelete('cascade');
             // Kolom 'ukuran_custom_id' adalah kunci luar (foreign key) yang terhubung dengan tabel 'ukuran_custom' dan mengaktifkan opsi 'cascade' pada saat penghapusan.
             $table->foreignId('ukuran_custom_id')->nullable()->constrained('ukuran_custom')->onDelete('cascade');
+            // Kolom 'tipe_ukuran' digunakan untuk menyimpan tipe ukuran yang dipilih
+            $table->enum('tipe_ukuran', ['standar', 'custom']);
             // Kolom 'jumlah' digunakan untuk menyimpan jumlah barang dalam bentuk angka bulat.
             $table->integer('jumlah');
-            // Kolom 'status' digunakan untuk menyimpan status dengan panjang maksimum 50 karakter.
-            $table->string('status', 50);
             // Kolom 'timestamps' otomatis mencakup dua timestamp datetime, yaitu 'created_at' dan 'updated_at', untuk melacak waktu pembuatan dan pembaruan record.
             $table->timestamps();
         });

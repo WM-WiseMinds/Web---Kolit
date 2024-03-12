@@ -20,8 +20,8 @@ return new class extends Migration
             $table->text('keterangan');
             // Kolom 'gambar' digunakan untuk menyimpan nama file gambar dengan panjang maksimum 255 karakter.
             $table->string('gambar', 255);
-            // Kolom 'status' digunakan untuk menyimpan status barang dengan panjang maksimum 50 karakter, seperti "tersedia" atau "habis".
-            $table->string('status', 50);
+            // Kolom 'status' digunakan untuk menyimpan status barang dengan enum
+            $table->enum('status', ['Aktif', 'Tidak Aktif']);
             // Kolom 'timestamps' otomatis mencakup dua timestamp, yaitu 'created_at' dan 'updated_at', untuk melacak waktu pembuatan dan pembaruan record.
             $table->timestamps();
         });

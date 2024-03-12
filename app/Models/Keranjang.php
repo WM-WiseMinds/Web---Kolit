@@ -18,7 +18,6 @@ class Keranjang extends Model
         'ukuran_id',
         'ukuran_custom_id',
         'jumlah',
-        'status',
     ];
 
     // Mendefinisikan bahwa model 'Keranjang' memiliki relasi "belongsTo" dengan model 'User',
