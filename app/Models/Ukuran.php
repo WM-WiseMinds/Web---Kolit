@@ -8,16 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class Ukuran extends Model
 {
     use HasFactory;
-    
+
     // Mendefinisikan nama tabel yang terkait dengan model 'Ukuran' menjadi 'ukuran'.
     protected $table = 'ukuran';
 
     // Mendefinisikan kolom-kolom yang dapat diisi (fillable) pada model 'Ukuran'.
     protected $fillable = [
         'barang_id',
-        'ukuran',
-        'stok',
         'deskripsi',
+        'panjang',
+        'lebar',
+        'tinggi',
+        'stock',
+        'harga',
     ];
 
     // Mendefinisikan tipe data dari kolom 'deskripsi' sebagai 'text'.

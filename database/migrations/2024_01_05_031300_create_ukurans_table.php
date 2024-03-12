@@ -26,6 +26,8 @@ return new class extends Migration
             $table->integer('tinggi');
             // Kolom 'stock' digunakan untuk menyimpan stok ukuran barang dengan tipe data integer.
             $table->integer('stock');
+            // Kolom 'harga' digunakan untuk menyimpan harga ukuran barang dengan tipe data integer.
+            $table->integer('harga');
             // Kolom 'timestamps' otomatis mencakup dua timestamp datetime, yaitu 'created_at' dan 'updated_at', untuk melacak waktu pembuatan dan pembaruan barang.
             $table->timestamps();
         });

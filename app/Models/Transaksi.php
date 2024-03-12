@@ -15,12 +15,8 @@ class Transaksi extends Model
     // Mendefinisikan kolom-kolom yang dapat diisi (fillable) pada model 'Transaksi'.
     protected $fillable = [
         'user_id',
-        'kode_transaksi',
         'total_harga',
-        'nama_pelanggan',
-        'no_wa_pelanggan',
-        'alamat_pelanggan',
-        'tipe_pembayaran',
+        'bukti_pembayaran',
         'status',
     ];
 

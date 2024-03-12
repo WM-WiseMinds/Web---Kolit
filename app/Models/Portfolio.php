@@ -17,6 +17,8 @@ class Portfolio extends Model
         'judul',
         'tanggal_pengerjaan',
         'kategori',
+        'deskripsi',
+        'gambar',
     ];
 
     // Mendefinisikan tipe data dari kolom 'tanggal_pengerjaan' sebagai 'datetime'.
@@ -30,5 +32,4 @@ class Portfolio extends Model
     {
         return $this->belongsTo(Barang::class);
     }
-
 }

@@ -13,9 +13,8 @@ class Faq extends Model
 
     // Mendefinisikan kolom-kolom yang dapat diisi (fillable) pada model 'Faq'.
     protected $fillable = [
-        'user_id',
-        'tanggal_dibuat',
-        'tanggal_diperbarui',
+        'penanya_id',
+        'penjawab_id',
         'pertanyaan',
         'jawaban',
     ];

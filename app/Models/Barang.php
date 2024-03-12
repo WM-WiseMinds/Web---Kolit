@@ -18,12 +18,11 @@ class Barang extends Model
         'keterangan',
         'gambar',
         'status',
-        'total_terjual',
     ];
 
     // Mendefinisikan tipe data dari kolom 'keterangan' sebagai 'text'.
     protected $casts = [
-    'keterangan' => 'text',
+        'keterangan' => 'text',
     ];
 
     // Mendefinisikan relasi 'keranjang' dimana 'Barang' memiliki banyak 'Keranjang'.
@@ -37,7 +36,7 @@ class Barang extends Model
     {
         return $this->hasMany(Portfolio::class);
     }
-    
+
     // Mendefinisikan relasi 'ukuran' dimana 'Barang' memiliki banyak 'Ukuran'.
     public function ukuran()
     {

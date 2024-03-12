@@ -15,12 +15,10 @@ class Detailtransaksi extends Model
     // Mendefinisikan kolom-kolom yang dapat diisi (fillable) pada model 'DetailTransaksi'.
     protected $fillable = [
         'transaksi_id',
-        'jumlah',
-        'harga_barang',
-        'ukuran',
         'nama_barang',
-        'total',
-        'foto_barang',
+        'jumlah',
+        'ukuran',
+        'harga',
     ];
 
     // Mendefinisikan bahwa model 'DetailTransaksi' memiliki relasi "belongsTo" dengan model 'Transaksi',
@@ -29,5 +27,4 @@ class Detailtransaksi extends Model
     {
         return $this->belongsTo(Transaksi::class);
     }
-
 }
