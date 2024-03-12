@@ -6,6 +6,7 @@ use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Masmerise\Toaster\Toastable;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
 use PowerComponents\LivewirePowerGrid\Exportable;
@@ -21,6 +22,7 @@ use PowerComponents\LivewirePowerGrid\Traits\WithExport;
 final class UserTable extends PowerGridComponent
 {
     use WithExport;
+    use Toastable;
 
     public function setUp(): array
     {
@@ -39,15 +41,7 @@ final class UserTable extends PowerGridComponent
 
     public function datasource(): Builder
     {
-        return User::query()
-            ->join('roles', 'users.role_id', '=', 'roles.id') // Pastikan 'role_id' adalah foreign key yang benar di tabel 'users'
-            ->select([
-                'users.id', // Pilih kolom yang Anda butuhkan dari tabel 'users'
-                'users.name',
-                'users.email',
-                'users.created_at',
-                'roles.name as role_name', // Alias untuk 'name' dari tabel 'roles'
-            ])->orderBy('users.id', 'asc');
+        return User::query()->with('roles');
     }
 
 
@@ -56,14 +50,16 @@ final class UserTable extends PowerGridComponent
         return [];
     }
 
-    public function addColumns(): PowerGridColumns
+    public function fields(): PowerGridFields
     {
-        return PowerGrid::columns()
-            ->addColumn('id')
-            ->addColumn('name')
-            ->addColumn('email')
-            ->addColumn('role')
-            ->addColumn('created_at');
+        return PowerGrid::fields()
+            ->add('id')
+            ->add('name')
+            ->add('email')
+            ->add('role', function ($row) {
+                return $row->roles->pluck('name')->implode(', ');
+            })
+            ->add('created_at');
     }
 
     public function columns(): array
@@ -79,7 +75,7 @@ final class UserTable extends PowerGridComponent
                 ->sortable()
                 ->searchable(),
 
-            Column::make(__('Role'), 'role_name')
+            Column::make(__('Role'), 'role')
                 ->sortable(),
 
             Column::make('Created at', 'created_at')
@@ -173,5 +169,7 @@ final class UserTable extends PowerGridComponent
     {
         $user = User::findOrFail($rowId);
         $user->delete();
+
+        $this->success('User telah berhasil dihapus.');
     }
 }

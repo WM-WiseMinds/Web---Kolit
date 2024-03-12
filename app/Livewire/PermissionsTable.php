@@ -6,6 +6,7 @@ use App\Models\Permissions;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Masmerise\Toaster\Toastable;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
 use PowerComponents\LivewirePowerGrid\Exportable;
@@ -16,10 +17,12 @@ use PowerComponents\LivewirePowerGrid\PowerGrid;
 use PowerComponents\LivewirePowerGrid\PowerGridFields;
 use PowerComponents\LivewirePowerGrid\PowerGridComponent;
 use PowerComponents\LivewirePowerGrid\Traits\WithExport;
+use Spatie\Permission\Models\Permission;
 
 final class PermissionsTable extends PowerGridComponent
 {
     use WithExport;
+    use Toastable;
 
     public function setUp(): array
     {
@@ -38,7 +41,7 @@ final class PermissionsTable extends PowerGridComponent
 
     public function datasource(): Builder
     {
-        return Permissions::query();
+        return Permission::query();
     }
 
     public function relationSearch(): array
@@ -75,13 +78,8 @@ final class PermissionsTable extends PowerGridComponent
         return [];
     }
 
-    #[\Livewire\Attributes\On('edit')]
-    public function edit($rowId): void
-    {
-        $this->js('alert(' . $rowId . ')');
-    }
 
-    public function actions(\App\Models\Permissions $row): array
+    public function actions(Permission $row): array
     {
         return [
             Button::add('edit')
@@ -157,7 +155,8 @@ final class PermissionsTable extends PowerGridComponent
     // Function to delete data
     public function delete($rowId)
     {
-        $permissions = Permissions::findOrFail($rowId);
+        $permissions = Permission::findOrFail($rowId);
+        $this->success('Permission telah berhasil dihapus.');
         $permissions->delete();
     }
 }
