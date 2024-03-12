@@ -10,7 +10,7 @@ class Detailpelanggan extends Model
     use HasFactory;
 
     // Mendefinisikan nama tabel yang terkait dengan model 'DetailPelanggan' menjadi 'detailpelanggan'.
-    protected $table = 'detailpelanggan';
+    protected $table = 'detail_pelanggan';
 
     // Mendefinisikan kolom-kolom yang dapat diisi (fillable) pada model 'DetailPelanggan'.
     protected $fillable = [
