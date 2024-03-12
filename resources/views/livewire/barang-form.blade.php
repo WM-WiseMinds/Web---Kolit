@@ -51,7 +51,7 @@
                         id="status">
                         <option value="">Pilih Status</option>
                         <option value="Aktif">Aktif</option>
-                        <option value="Nonaktif">Nonaktif</option>
+                        <option value="Tidak Aktif">Tidak Aktif</option>
                     </select>
                     @error('status')
                         <span class="text-red-500">{{ $message }}</span>

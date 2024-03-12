@@ -4,11 +4,11 @@
             <div class="">
                 <div class="mb-4">
                     <label for="exampleFormControlInput4" class="block text-gray-700 text-sm font-bold mb-2">Nama
-                        Pembeli</label>
+                        Pelanggan</label>
                     <select wire:model="user_id"
                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         id="exampleFormControlInput4">
-                        <option value="">Pilih Nama Pembeli</option>
+                        <option value="">Pilih Nama Pelanggan</option>
                         @foreach ($users as $user)
                             <option value="{{ $user->id }}">{{ $user->name }}</option>
                         @endforeach

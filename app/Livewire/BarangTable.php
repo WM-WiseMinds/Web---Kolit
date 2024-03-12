@@ -92,7 +92,12 @@ final class BarangTable extends PowerGridComponent
 
     public function filters(): array
     {
-        return [];
+        return [
+            Filter::select('status', 'status')
+                ->dataSource(Barang::all()->unique('status'))
+                ->optionValue('status')
+                ->optionLabel('status'),
+        ];
     }
 
     public function actions(Barang $row): array
