@@ -24,7 +24,7 @@ class PortfolioForm extends ModalComponent
         'judul' => 'required',
         'tanggal_pengerjaan' => 'required|date',
         'deskripsi' => 'required',
-        'gambar' => 'image|max:2048|mimes:jpg,jpeg,png,gif',
+        'gambar' => 'nullable|image|max:2048|mimes:jpg,jpeg,png,gif',
     ];
 
     public function render()

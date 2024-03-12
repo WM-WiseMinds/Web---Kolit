@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use Masmerise\Toaster\Toastable;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
+use PowerComponents\LivewirePowerGrid\Detail;
 use PowerComponents\LivewirePowerGrid\Exportable;
 use PowerComponents\LivewirePowerGrid\Facades\Filter;
 use PowerComponents\LivewirePowerGrid\Footer;
@@ -32,6 +33,9 @@ final class PortfolioTable extends PowerGridComponent
             Footer::make()
                 ->showPerPage()
                 ->showRecordCount(),
+            Detail::make()
+                ->view('details.portfolio-detail')
+                ->showCollapseIcon(),
         ];
 
         if (auth()->user()->can('export')) {
