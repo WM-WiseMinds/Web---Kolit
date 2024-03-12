@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('detail pelanggan', function (Blueprint $table) {
+        Schema::create('detail_pelanggan', function (Blueprint $table) {
             // Kolom 'id' digunakan sebagai primary key (kunci utama) untuk memberikan identifikasi unik kepada setiap record dalam tabel.
             $table->id();
             // Kolom 'user_id' adalah kunci luar (foreign key) yang terhubung dengan tabel 'user'.
@@ -20,8 +20,6 @@ return new class extends Migration
             $table->string('no_wa', 15);
             // Kolom 'alamat' digunakan untuk menyimpan alamat dengan tipe data string.
             $table->string('alamat');
-            // Kolom 'tanggal_terakhir_transaksi' adalah timestamp datetime yang mencatat kapan terakhir kali transaksi dilakukan.
-            $table->dateTime('tanggal_terakhir_transaksi');
             // Kolom 'timestamps' otomatis mencakup dua timestamp datetime, yaitu 'created_at' dan 'updated_at', untuk melacak waktu pembuatan dan pembaruan record.
             $table->timestamps();
         });

@@ -22,6 +22,8 @@ return new class extends Migration
             $table->dateTime('tanggal_pengerjaan');
             // Kolom 'kategori' digunakan untuk menyimpan kategori tugas akhir dengan panjang maksimum 100 karakter.
             $table->string('kategori', 100);
+            // Kolom 'deskripsi' digunakan untuk menyimpan deskripsi tugas akhir dengan tipe data text.
+            $table->text('deskripsi');
             // Kolom 'timestamps' otomatis mencakup dua timestamp datetime, yaitu 'created_at' dan 'updated_at', untuk melacak waktu pembuatan dan pembaruan tugas akhir.
             $table->timestamps();
         });

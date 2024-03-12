@@ -22,8 +22,6 @@ return new class extends Migration
             $table->string('gambar', 255);
             // Kolom 'status' digunakan untuk menyimpan status barang dengan panjang maksimum 50 karakter, seperti "tersedia" atau "habis".
             $table->string('status', 50);
-            // Kolom 'total_terjual' digunakan untuk menyimpan jumlah total barang yang sudah terjual dalam bentuk angka bulat.
-            $table->integer('total_terjual');
             // Kolom 'timestamps' otomatis mencakup dua timestamp, yaitu 'created_at' dan 'updated_at', untuk melacak waktu pembuatan dan pembaruan record.
             $table->timestamps();
         });

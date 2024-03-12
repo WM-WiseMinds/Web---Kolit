@@ -19,7 +19,9 @@ return new class extends Migration
             // Kolom 'barang_id' adalah kunci luar (foreign key) yang terhubung dengan tabel 'barang' dan mengaktifkan opsi 'cascade' pada saat penghapusan.
             $table->foreignId('barang_id')->constrained('barang')->onDelete('cascade');
             // Kolom 'ukuran_id' adalah kunci luar (foreign key) yang terhubung dengan tabel 'ukuran' dan mengaktifkan opsi 'cascade' pada saat penghapusan.
-            $table->foreignId('ukuran_id')->constrained('ukuran')->onDelete('cascade');
+            $table->foreignId('ukuran_id')->nullable()->constrained('ukuran')->onDelete('cascade');
+            // Kolom 'ukuran_custom_id' adalah kunci luar (foreign key) yang terhubung dengan tabel 'ukuran_custom' dan mengaktifkan opsi 'cascade' pada saat penghapusan.
+            $table->foreignId('ukuran_custom_id')->nullable()->constrained('ukuran_custom')->onDelete('cascade');
             // Kolom 'jumlah' digunakan untuk menyimpan jumlah barang dalam bentuk angka bulat.
             $table->integer('jumlah');
             // Kolom 'status' digunakan untuk menyimpan status dengan panjang maksimum 50 karakter.
