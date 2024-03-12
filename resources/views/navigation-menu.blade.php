@@ -1,7 +1,7 @@
 <div class="flex h-screen bg-gray-50 dark:bg-gray-900">
     <!-- Primary Navigation Menu -->
     <aside
-        class="z-20 hidden w-64 overflow-y-auto bg-gradient-to-t from-orange-700 to-orange-600 dark:bg-gray-800 md:block flex-shrink-0">
+        class="z-10 hidden w-64 overflow-y-auto bg-gradient-to-t from-orange-700 to-orange-600 dark:bg-gray-800 md:block flex-shrink-0">
         <div class="py-4 text-gray-500 dark:text-gray-400 text-center">
             <a href="{{ route('dashboard') }}" class="mx-4 text-lg font-bold text-white dark:text-gray-200">
                 Sistem Informasi Penjualan PW Interior
