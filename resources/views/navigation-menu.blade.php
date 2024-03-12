@@ -83,7 +83,18 @@
                         <span class="ml-4">Barang</span>
                     </x-nav-link>
                 </li>
-
+                <li
+                    class="relative px-6 py-3 {{ request()->routeIs('portfolio') ? 'bg-white' : 'text-white hover:text-white dark:hover:text-gray-200 dark:text-gray-100' }}">
+                    <x-nav-link href="{{ route('portfolio') }}" :active="request()->routeIs('portfolio')"
+                        class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 {{ request()->routeIs('portfolio') ? 'text-orange-600' : 'text-white hover:text-white dark:hover:text-gray-200 dark:text-gray-100' }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                            <path fill-rule="evenodd"
+                                d="M1.5 6a2.25 2.25 0 0 1 2.25-2.25h16.5A2.25 2.25 0 0 1 22.5 6v12a2.25 2.25 0 0 1-2.25 2.25H3.75A2.25 2.25 0 0 1 1.5 18V6ZM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0 0 21 18v-1.94l-2.69-2.689a1.5 1.5 0 0 0-2.12 0l-.88.879.97.97a.75.75 0 1 1-1.06 1.06l-5.16-5.159a1.5 1.5 0 0 0-2.12 0L3 16.061Zm10.125-7.81a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0Z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <span class="ml-4">Portfolio</span>
+                    </x-nav-link>
+                </li>
             </ul>
         </div>
     </aside>

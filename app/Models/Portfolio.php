@@ -16,7 +16,6 @@ class Portfolio extends Model
         'barang_id',
         'judul',
         'tanggal_pengerjaan',
-        'kategori',
         'deskripsi',
         'gambar',
     ];

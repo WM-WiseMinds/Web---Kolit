@@ -45,4 +45,8 @@ Route::middleware([
     Route::get('/barang', function () {
         return view('barang');
     })->name('barang');
+
+    Route::get('/portfolio', function () {
+        return view('portfolio');
+    })->name('portfolio');
 });
