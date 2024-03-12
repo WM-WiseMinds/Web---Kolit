@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('detail_transaksi', function (Blueprint $table) {
+        Schema::create('detailtransaksi', function (Blueprint $table) {
             // Kolom 'id' digunakan sebagai primary key (kunci utama) untuk memberikan identifikasi unik kepada setiap item dalam tabel.
             $table->id();
             // Kolom 'transaksi_id' adalah kunci luar (foreign key) yang terhubung dengan tabel 'transaksi'.
