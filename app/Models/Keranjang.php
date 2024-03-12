@@ -41,4 +41,11 @@ class Keranjang extends Model
     {
         return $this->belongsTo(Ukuran::class);
     }
+
+    // Mendefinisikan bahwa model 'Keranjang' memiliki relasi "belongsTo" dengan model 'UkuranCustom',
+    // yang mengindikasikan bahwa setiap Keranjang terkait dengan satu UkuranCustom.
+    public function ukuran_custom()
+    {
+        return $this->belongsTo(UkuranCustom::class);
+    }
 }

@@ -25,10 +25,21 @@ class Faq extends Model
         'jawaban' => 'text',
     ];
 
-    // Mendefinisikan bahwa model 'Faq' memiliki relasi "belongsTo" dengan model 'User',
-    // yang mengindikasikan bahwa setiap Faq "milik" satu User.
-    public function user()
+    /**
+     * Mendefinisikan relasi antara model 'Faq' dengan model 'User'.
+     * Relasi ini menunjukkan bahwa satu pertanyaan hanya dimiliki oleh satu user.
+     */
+    public function penanya()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'penanya_id');
+    }
+
+    /**
+     * Mendefinisikan relasi antara model 'Faq' dengan model 'User'.
+     * Relasi ini menunjukkan bahwa satu jawaban hanya dimiliki oleh satu user.
+     */
+    public function penjawab()
+    {
+        return $this->belongsTo(User::class, 'penjawab_id');
     }
 }
