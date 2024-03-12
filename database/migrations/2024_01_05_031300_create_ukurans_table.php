@@ -16,8 +16,8 @@ return new class extends Migration
             $table->id();
             // Kolom 'barang_id' adalah kunci luar (foreign key) yang terhubung dengan tabel 'barang'.
             $table->foreignId('barang_id')->constrained('barang')->onDelete('cascade');
-            // Kolom 'deskripsi' digunakan untuk menyimpan deskripsi lebih lanjut mengenai barang dalam bentuk teks.
-            $table->text('deskripsi');
+            // Kolom 'ukuran' digunakan untuk menyimpan ukuran lebih lanjut mengenai barang dalam bentuk teks.
+            $table->text('ukuran');
             // Kolom 'panjang' digunakan untuk menyimpan panjang ukuran barang dengan tipe data integer.
             $table->integer('panjang');
             // Kolom 'lebar' digunakan untuk menyimpan lebar ukuran barang dengan tipe data integer.

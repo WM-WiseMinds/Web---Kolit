@@ -15,17 +15,12 @@ class Ukuran extends Model
     // Mendefinisikan kolom-kolom yang dapat diisi (fillable) pada model 'Ukuran'.
     protected $fillable = [
         'barang_id',
-        'deskripsi',
+        'ukuran',
         'panjang',
         'lebar',
         'tinggi',
         'stock',
         'harga',
-    ];
-
-    // Mendefinisikan tipe data dari kolom 'deskripsi' sebagai 'text'.
-    protected $casts = [
-        'deskripsi' => 'text',
     ];
 
     // Mendefinisikan bahwa model 'Ukuran' memiliki relasi "hasMany" dengan model 'Keranjang',
