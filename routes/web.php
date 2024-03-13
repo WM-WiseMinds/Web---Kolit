@@ -29,8 +29,8 @@ Route::get('/barangs', function () {
 });
 
 Route::get('/faqs', function () {
-    $faq = Faq::all();
-    return view('faqs', compact('faq'));
+    $faqs = Faq::all();
+    return view('faqs', compact('faqs'));
 })->name('faqs');
 
 Route::get('/detail-barang/{id}', function ($id) {

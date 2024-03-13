@@ -1,4 +1,4 @@
-<div class="flex h-screen bg-gray-50 dark:bg-gray-900">
+<div class="flex h-screen bg-gray-50 dark:bg-gray-900" x-on:roles-updated.window="window.location.reload()">
     <!-- Primary Navigation Menu -->
     <aside
         class="z-10 hidden w-64 overflow-y-auto bg-gradient-to-t from-orange-700 to-orange-600 dark:bg-gray-800 md:block flex-shrink-0">

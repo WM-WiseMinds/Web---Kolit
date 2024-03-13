@@ -70,6 +70,8 @@ class FaqForm extends ModalComponent
         ]);
 
         $this->resetCreateForm();
+
+        $this->dispatch('faqs-updated');
     }
 
     public function mount($rowId = null, $bertanyaOnlyMode = false)

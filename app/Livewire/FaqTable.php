@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Masmerise\Toaster\Toastable;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
+use PowerComponents\LivewirePowerGrid\Detail;
 use PowerComponents\LivewirePowerGrid\Exportable;
 use PowerComponents\LivewirePowerGrid\Facades\Filter;
 use PowerComponents\LivewirePowerGrid\Footer;
@@ -26,20 +27,28 @@ final class FaqTable extends PowerGridComponent
     {
         $this->showCheckBox();
 
-        return [
-            Exportable::make('export')
-                ->striped()
-                ->type(Exportable::TYPE_XLS, Exportable::TYPE_CSV),
+        $setup = [
             Header::make()->showSearchInput(),
             Footer::make()
                 ->showPerPage()
                 ->showRecordCount(),
+            Detail::make()
+                ->showCollapseIcon()
+                ->view('details.faq-detail')
         ];
+
+        if (auth()->user()->can('export')) {
+            $setup[] =
+                Exportable::make('export')
+                ->striped()
+                ->type(Exportable::TYPE_XLS, Exportable::TYPE_CSV);
+        }
+        return $setup;
     }
 
     public function datasource(): Builder
     {
-        return Faq::query();
+        return Faq::query()->with(['penanya', 'penjawab']);
     }
 
     public function relationSearch(): array
@@ -52,7 +61,9 @@ final class FaqTable extends PowerGridComponent
         return PowerGrid::fields()
             ->add('id')
             ->add('penanya_id')
+            ->add('nama_penanya', fn (Faq $faq) => $faq->penanya->name)
             ->add('penjawab_id')
+            ->add('nama_penjawab', fn (Faq $faq) => $faq->penjawab ? $faq->penjawab->name : 'N/A')
             ->add('pertanyaan')
             ->add('jawaban')
             ->add('created_at_formatted', fn (Faq $faq) => Carbon::parse($faq->created_at)->format('d-m-Y'))
