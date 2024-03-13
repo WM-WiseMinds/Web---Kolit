@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Portfolio;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Storage;

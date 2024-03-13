@@ -7,7 +7,6 @@
                 <th style="border: 1px solid; padding: 8px;">Nama Pelanggan</th>
                 <th style="border: 1px solid; padding: 8px;">Alamat</th>
                 <th style="border: 1px solid; padding: 8px;">No Telp</th>
-                <th style="border: 1px solid; padding: 8px;">Tanggal transaksi </th>
             </tr>
         </thead>
 
@@ -15,7 +14,7 @@
             @foreach ($datasource as $detailpelanggan)
                 <tr>
                     <td style="border: 1px solid; padding: 8px;">{{ $detailpelanggan->id }}</td>
-                    <td style="border: 1px solid; padding: 8px;">{{ $detailpelanggan->name }}</td>
+                    <td style="border: 1px solid; padding: 8px;">{{ $detailpelanggan->user->name }}</td>
                     <td style="border: 1px solid; padding: 8px;">{{ $detailpelanggan->alamat }}</td>
                     <td style="border: 1px solid; padding: 8px;">{{ $detailpelanggan->no_wa }}</td>
                 </tr>

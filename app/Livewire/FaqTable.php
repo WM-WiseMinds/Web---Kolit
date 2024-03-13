@@ -37,12 +37,12 @@ final class FaqTable extends PowerGridComponent
                 ->view('details.faq-detail')
         ];
 
-        if (auth()->user()->can('export')) {
-            $setup[] =
-                Exportable::make('export')
-                ->striped()
-                ->type(Exportable::TYPE_XLS, Exportable::TYPE_CSV);
-        }
+        // if (auth()->user()->can('export')) {
+        //     $setup[] =
+        //         Exportable::make('export')
+        //         ->striped()
+        //         ->type(Exportable::TYPE_XLS, Exportable::TYPE_CSV);
+        // }
         return $setup;
     }
 

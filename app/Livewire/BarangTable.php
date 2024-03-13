@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Barang;
 use App\Models\Ukuran;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Storage;
