@@ -2,6 +2,9 @@
 
 use App\Models\Barang;
 use App\Models\Faq;
+use App\Models\Portfolio;
+use App\Models\Transaksi;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,8 +22,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/gallery', function () {
-    return view('gallery');
+Route::get('/portfolios', function () {
+    $portfolios = Portfolio::all();
+    return view('portfolios', compact('portfolios'));
 });
 
 Route::get('/barangs', function () {
@@ -44,7 +48,14 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        if (Gate::allows('viewAny', User::class)) {
+            $userCount = User::count();
+            $barangCount = Barang::count();
+            $transaksiCount = Transaksi::count();
+            return view('dashboard', compact('userCount', 'barangCount', 'transaksiCount'));
+        } else {
+            return view('welcome');
+        }
     })->name('dashboard');
 
     Route::get('/permissions', function () {

@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             DetailpelangganSeeder::class,
             BarangSeeder::class,
             UkuranSeeder::class,
+            PortfolioSeeder::class,
         ]);
     }
 }
