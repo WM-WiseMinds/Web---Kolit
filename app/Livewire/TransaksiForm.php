@@ -124,7 +124,7 @@ class TransaksiForm extends ModalComponent
         if ($keranjangIds) {
             $this->keranjangItems = Keranjang::whereIn('id', $keranjangIds)->get();
             $this->user_id = auth()->user()->id;
-            $this->status = 'Dalam Proses';
+            $this->status = 'Pesanan Diproses';
             // Inisialisasi properti
             foreach ($this->keranjangItems as $keranjangItem) {
                 $this->ukuranStandar[$keranjangItem->id] = $keranjangItem->ukuran_id != null;

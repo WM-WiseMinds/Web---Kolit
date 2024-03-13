@@ -17,7 +17,7 @@ return new class extends Migration
             // Kolom 'user_id' adalah kunci luar (foreign key) yang terhubung dengan tabel 'user'.
             $table->foreignId('user_id')->constrained('users');
             // Kolom 'no_wa' digunakan untuk menyimpan nomor WhatsApp dengan panjang maksimum 15 karakter.
-            $table->string('no_wa', 15);
+            $table->string('no_wa', 50);
             // Kolom 'alamat' digunakan untuk menyimpan alamat dengan tipe data string.
             $table->string('alamat');
             // Kolom 'timestamps' otomatis mencakup dua timestamp datetime, yaitu 'created_at' dan 'updated_at', untuk melacak waktu pembuatan dan pembaruan record.
