@@ -19,12 +19,6 @@ class Faq extends Model
         'jawaban',
     ];
 
-    // Mendefinisikan tipe data dari kolom 'pertanyaan' dan 'jawaban' sebagai 'text'.
-    protected $casts = [
-        'pertanyaan' => 'text',
-        'jawaban' => 'text',
-    ];
-
     /**
      * Mendefinisikan relasi antara model 'Faq' dengan model 'User'.
      * Relasi ini menunjukkan bahwa satu pertanyaan hanya dimiliki oleh satu user.

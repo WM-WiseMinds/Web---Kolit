@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Barang;
+use App\Models\Faq;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,6 +27,11 @@ Route::get('/barangs', function () {
     $barang = Barang::all();
     return view('barangs', compact('barang'));
 });
+
+Route::get('/faqs', function () {
+    $faq = Faq::all();
+    return view('faqs', compact('faq'));
+})->name('faqs');
 
 Route::get('/detail-barang/{id}', function ($id) {
     $barang = Barang::findOrFail($id);
