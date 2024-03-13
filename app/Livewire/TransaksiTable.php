@@ -2,7 +2,9 @@
 
 namespace App\Livewire;
 
+use App\Models\Barang;
 use App\Models\Transaksi;
+use App\Models\Ukuran;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
@@ -108,15 +110,15 @@ final class TransaksiTable extends PowerGridComponent
         $actions = [];
 
         if (auth()->user()->can('payment')) {
-            if (!$row->pembayaran || $row->pembayaran->status !== 'Disetujui') {
+            if (in_array($row->status, ['Pembayaran Ditolak', 'Pesanan Diproses', 'Menunggu Konfirmasi'])) {
                 $actions[] = Button::add('payment')
                     ->slot('<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm3 0h.008v.008H18V10.5Zm-12 0h.008v.008H6V10.5Z" />
-                    </svg>
-                    ')
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm3 0h.008v.008H18V10.5Zm-12 0h.008v.008H6V10.5Z" />
+                </svg>
+                ')
                     ->id()
                     ->class('pg-btn-white dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
-                    ->openModal('pembayaran-form', ['transaksi_id' => $row->id]);
+                    ->openModal('transaksi-form', ['rowId' => $row->id, 'updatingPembayaranOnly' => true]);
             }
         }
         if (auth()->user()->can('verifikasi')) {
@@ -188,10 +190,10 @@ final class TransaksiTable extends PowerGridComponent
         return response()->download($path . '/transaksi.pdf');
     }
 
-    // Function to delete data
     public function delete($rowId)
     {
-        $transaksi = Transaksi::findOrFail($rowId);
+        $transaksi = Transaksi::with('detailtransaksi')->findOrFail($rowId);
+
         $transaksi->delete();
         $this->success('Transaksi berhasil dihapus');
     }

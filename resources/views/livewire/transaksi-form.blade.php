@@ -2,7 +2,7 @@
     <form>
         <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
             <div class="">
-                @if (!$updatingStatusOnly)
+                @if (!$updatingStatusOnly && !$updatingPembayaranOnly)
                     <input type="hidden" wire:model="user_id">
                     <div class="mb-4">
                         @foreach ($keranjangItems as $keranjangItem)
@@ -21,20 +21,6 @@
                                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                         readonly>
                                 </div>
-                                {{-- <div class="col-span-1">
-                                    <label for="ukuran" class="form-label">Ukuran</label>
-                                    @if (isset($ukuranStandar[$keranjangItem->id]))
-                                        <input type="text" id="ukuran" name="ukuran"
-                                            value="{{ $keranjangItem->ukuran->panjang }} cm x {{ $keranjangItem->ukuran->lebar }} cm x {{ $keranjangItem->ukuran->tinggi }} cm"
-                                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                            readonly>
-                                    @else
-                                        <input type="text" id="ukuran" name="ukuran"
-                                            value="{{ $keranjangItem->ukuran_custom->panjang }} cm x {{ $keranjangItem->ukuran_custom->lebar }} cm x {{ $keranjangItem->ukuran_custom->tinggi }} cm"
-                                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                            readonly>
-                                    @endif
-                                </div> --}}
                                 <div class="col-span-1">
                                     <label for="ukuran" class="form-label">Ukuran</label>
                                     @if (isset($ukuranStandar[$keranjangItem->id]) && $keranjangItem->ukuran)
@@ -100,13 +86,46 @@
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             id="status">
                             <option value="">Pilih Status</option>
-                            <option value="Dalam Proses">Dalam Proses</option>
-                            <option value="Dikerjakan">Dikerjakan</option>
-                            <option value="Selesai">Selesai</option>
+                            <option value="Pembayaran Ditolak">Pembayaran Ditolak</option>
+                            <option value="Pembayaran Diterima">Pembayaran Diterima</option>
+                            <option value="Pesanan Dikerjakan">Pesanan Dikerjakan</option>
+                            <option value="Pesanan Selesai">Pesanan Selesai</option>
                         </select>
                         @error('status')
                             <span class="text-red-500">{{ $message }}</span>
                         @enderror
+                    </div>
+                @endif
+                @if ($updatingPembayaranOnly)
+                    <div class="mb-4">
+                        <h2 class="font-bold mb-2">Rekening</h2>
+                        <p>Nama Bank: XXXX</p>
+                        <p>No. Rekening: XXXX</p>
+                        <p>Nama Pemilik Rekening: XXXX</p>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="exampleFormControlInput3" class="block text-gray-700 text-sm font-bold mb-2">Bukti
+                            Pembayaran</label>
+
+                        <input type="file" id="bukti_pembayaran" wire:model.live="bukti_pembayaran"
+                            x-ref="bukti_pembayaran" class="w-full"
+                            x-on:change="
+                            photoName = $refs.bukti_pembayaran.files[0].name;
+                            const reader = new FileReader();
+                            reader.onload = (e) => {
+                                photoPreview = e.target.result;
+                            };
+                            reader.readAsDataURL($refs.bukti_pembayaran.files[0]);
+                        " />
+                        @error('bukti_pembayaran')
+                            <span class="text-red-500">{{ $message }}</span>
+                        @enderror
+                        @if ($transaksi->exists && $transaksi->bukti_pembayaran)
+                            <x-button emerald class="mt-2">
+                                <a href="{{ $bukti_pembayaran_url }}" download>Download</a>
+                            </x-button>
+                        @endif
                     </div>
                 @endif
             </div>

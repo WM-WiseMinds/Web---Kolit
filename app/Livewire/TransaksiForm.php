@@ -6,18 +6,22 @@ use App\Models\DetailTransaksi;
 use App\Models\Keranjang;
 use App\Models\Transaksi;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 use LivewireUI\Modal\ModalComponent;
 use Masmerise\Toaster\Toastable;
 
 class TransaksiForm extends ModalComponent
 {
     use Toastable;
+    use WithFileUploads;
 
     public Transaksi $transaksi;
-    public $user, $id, $user_id, $total_harga, $status, $keranjangItems, $ukuranStandar, $ukuranCustom, $hargaStandar, $hargaCustom, $totalHargaItems, $grandTotal;
+    public $user, $id, $user_id, $total_harga, $status, $keranjangItems, $ukuranStandar, $ukuranCustom, $hargaStandar, $hargaCustom, $totalHargaItems, $grandTotal, $bukti_pembayaran, $bukti_pembayaran_url;
     public $keranjangIds = [];
     public $updatingStatusOnly = false;
+    public $updatingPembayaranOnly = false;
 
     public function render()
     {
@@ -33,6 +37,11 @@ class TransaksiForm extends ModalComponent
     public function switchToCreateOrUpdateMode()
     {
         $this->updatingStatusOnly = false;
+    }
+
+    public function switchToPembayaranOnlyMode()
+    {
+        $this->updatingPembayaranOnly = true;
     }
 
     protected $rules = [
@@ -53,9 +62,34 @@ class TransaksiForm extends ModalComponent
         if ($this->updatingStatusOnly) {
             $validated = $this->validate(['status' => 'required']);
             $this->transaksi->status = $validated['status'];
+
+            // dd($validated['status']);
+
+            if ($validated['status'] === 'Pembayaran Ditolak' && $this->transaksi->bukti_pembayaran) {
+                Storage::disk('public')->delete($this->transaksi->bukti_pembayaran);
+                $this->transaksi->bukti_pembayaran = null;
+            }
+
             $this->transaksi->save();
 
             $this->success('Status transaksi berhasil diubah');
+        } else if ($this->updatingPembayaranOnly) {
+            $validated = $this->validate(['bukti_pembayaran' => 'required']);
+            if ($this->bukti_pembayaran) {
+                // Delete the old image if it exists
+                if ($this->transaksi->bukti_pembayaran) {
+                    Storage::disk('public')->delete($this->transaksi->bukti_pembayaran);
+                }
+
+                // Store the new image
+                $path = $this->bukti_pembayaran->store('bukti-pembayaran', 'public');
+                $this->transaksi->bukti_pembayaran = $path;
+
+                $this->transaksi->status = 'Menunggu Konfirmasi';
+                $this->transaksi->save();
+
+                $this->success('Bukti pembayaran berhasil diupdate');
+            }
         } else {
             $validated = $this->validate();
 
@@ -106,16 +140,23 @@ class TransaksiForm extends ModalComponent
         }
     }
 
-    public function mount($rowId = null, $updatingStatusOnly = false, $keranjangIds = null)
+    public function mount($rowId = null, $updatingStatusOnly = false, $keranjangIds = null, $updatingPembayaranOnly = false)
     {
         $this->keranjangIds = $keranjangIds;
         $this->updatingStatusOnly = $updatingStatusOnly;
+        $this->updatingPembayaranOnly = $updatingPembayaranOnly;
         $this->user = User::all();
         if ($rowId) {
             $this->transaksi = Transaksi::find($rowId);
 
             if ($updatingStatusOnly) {
                 $this->status = $this->transaksi->status;
+            } else if ($updatingPembayaranOnly) {
+                $this->bukti_pembayaran = $this->transaksi->bukti_pembayaran;
+
+                if ($this->bukti_pembayaran) {
+                    $this->bukti_pembayaran_url = Storage::disk('public')->url($this->bukti_pembayaran);
+                }
             }
             $this->user_id = $this->transaksi->user_id;
             $this->total_harga = $this->transaksi->total_harga;
