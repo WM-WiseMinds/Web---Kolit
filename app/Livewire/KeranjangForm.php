@@ -97,6 +97,8 @@ class KeranjangForm extends ModalComponent
 
         $this->closeModal();
         $this->resetinput();
+
+        return redirect()->route('keranjang');
     }
 
     public function mount($barang_id = null)

@@ -14,7 +14,8 @@
                 {{-- {{ dump($barang) }} --}}
                 <div class="hero h-[50vh] bg-white">
                     <div class="hero-content flex-col lg:flex-row">
-                        <img src="{{ asset('storage/' . $barang->gambar) }}" class="max-w-sm rounded-lg shadow-2xl" />
+                        <img src="{{ asset('storage/' . $barang->gambar) }}"
+                            class="max-w-sm rounded-lg shadow-2xl h-96" />
                         <div>
                             <h1 class="text-5xl font-bold">{{ $barang->nama_barang }}</h1>
                             <p class="py-6">{{ $barang->keterangan }}</p>
