@@ -11,17 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('detail pelanggan', function (Blueprint $table) {
+        Schema::create('detailpelanggan', function (Blueprint $table) {
             // Kolom 'id' digunakan sebagai primary key (kunci utama) untuk memberikan identifikasi unik kepada setiap record dalam tabel.
             $table->id();
             // Kolom 'user_id' adalah kunci luar (foreign key) yang terhubung dengan tabel 'user'.
             $table->foreignId('user_id')->constrained('users');
             // Kolom 'no_wa' digunakan untuk menyimpan nomor WhatsApp dengan panjang maksimum 15 karakter.
-            $table->string('no_wa', 15);
+            $table->string('no_wa', 50);
             // Kolom 'alamat' digunakan untuk menyimpan alamat dengan tipe data string.
             $table->string('alamat');
-            // Kolom 'tanggal_terakhir_transaksi' adalah timestamp datetime yang mencatat kapan terakhir kali transaksi dilakukan.
-            $table->dateTime('tanggal_terakhir_transaksi');
             // Kolom 'timestamps' otomatis mencakup dua timestamp datetime, yaitu 'created_at' dan 'updated_at', untuk melacak waktu pembuatan dan pembaruan record.
             $table->timestamps();
         });
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('detailpembelis');
+        Schema::dropIfExists('detail_pelanggan');
     }
 };

@@ -16,8 +16,8 @@ class Keranjang extends Model
         'user_id',
         'barang_id',
         'ukuran_id',
+        'ukuran_custom_id',
         'jumlah',
-        'status',
     ];
 
     // Mendefinisikan bahwa model 'Keranjang' memiliki relasi "belongsTo" dengan model 'User',
@@ -39,5 +39,12 @@ class Keranjang extends Model
     public function ukuran()
     {
         return $this->belongsTo(Ukuran::class);
+    }
+
+    // Mendefinisikan bahwa model 'Keranjang' memiliki relasi "belongsTo" dengan model 'UkuranCustom',
+    // yang mengindikasikan bahwa setiap Keranjang terkait dengan satu UkuranCustom.
+    public function ukuran_custom()
+    {
+        return $this->belongsTo(UkuranCustom::class);
     }
 }

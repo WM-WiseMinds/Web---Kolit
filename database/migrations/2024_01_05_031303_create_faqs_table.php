@@ -14,12 +14,14 @@ return new class extends Migration
         Schema::create('faq', function (Blueprint $table) {
             // Kolom 'id' digunakan sebagai primary key (kunci utama) untuk memberikan identifikasi unik kepada setiap item pertanyaan dalam tabel.
             $table->id();
-            // Kolom 'user_id' adalah kunci luar (foreign key) yang terhubung dengan tabel 'user'.
-            $table->foreignId('user_id')->constrained('users');
+            // Kolom 'penanya_id' digunakan sebagai kunci luar (foreign key) yang terhubung dengan tabel 'users'.
+            $table->foreignId('penanya_id')->nullable()->constrained('users')->onDelete('cascade');
+            // Kolom 'penjawab_id' digunakan sebagai kunci luar (foreign key) yang terhubung dengan tabel 'users'.
+            $table->foreignId('penjawab_id')->nullable()->constrained('users')->onDelete('cascade');
             // Kolom 'pertanyaan' digunakan untuk menyimpan teks pertanyaan dalam bentuk teks (text).
-            $table->text('pertanyaan');
+            $table->text('pertanyaan')->nullable();
             // Kolom 'jawaban' digunakan untuk menyimpan teks jawaban dalam bentuk teks (text).
-            $table->text('jawaban');
+            $table->text('jawaban')->nullable();
             // Kolom 'timestamps' otomatis mencakup dua timestamp datetime, yaitu 'created_at' dan 'updated_at', untuk melacak waktu pembuatan dan pembaruan pertanyaan.
             $table->timestamps();
         });

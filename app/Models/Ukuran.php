@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Ukuran extends Model
 {
     use HasFactory;
-    
+
     // Mendefinisikan nama tabel yang terkait dengan model 'Ukuran' menjadi 'ukuran'.
     protected $table = 'ukuran';
 
@@ -16,13 +16,11 @@ class Ukuran extends Model
     protected $fillable = [
         'barang_id',
         'ukuran',
-        'stok',
-        'deskripsi',
-    ];
-
-    // Mendefinisikan tipe data dari kolom 'deskripsi' sebagai 'text'.
-    protected $casts = [
-        'deskripsi' => 'text',
+        'panjang',
+        'lebar',
+        'tinggi',
+        'stock',
+        'harga',
     ];
 
     // Mendefinisikan bahwa model 'Ukuran' memiliki relasi "hasMany" dengan model 'Keranjang',
