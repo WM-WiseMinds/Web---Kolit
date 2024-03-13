@@ -1,6 +1,7 @@
 <?php
 
 namespace Database\Seeders;
+
 use Illuminate\Database\QueryException;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -18,7 +19,9 @@ class UserSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@example.com',
             'password' => bcrypt('Password'),
-            'role_id' => 1,
         ]);
+
+        $user->removeRole('Pelanggan');
+        $user->assignRole('Admin');
     }
 }
