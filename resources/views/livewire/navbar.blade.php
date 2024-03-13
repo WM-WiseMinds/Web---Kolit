@@ -10,7 +10,7 @@
                 class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 text-black">
                 <li><a href="{{ url('/') }}">Beranda</a></li>
                 <li><a href="{{ url('/portfolios') }}">Portfolio</a></li>
-                <li><a href="{{ url('/produk') }}">Produk</a></li>
+                <li><a href="{{ url('/barangs') }}">Barang</a></li>
                 <li><a href="{{ url('/faqs') }}">FAQ</a></li>
             </ul>
         </div>
@@ -20,7 +20,7 @@
         <ul class="menu menu-horizontal px-1 text-white">
             <li><a href="{{ url('/') }}">Beranda</a></li>
             <li><a href="{{ url('/portfolios') }}">Portfolio</a></li>
-            <li><a href="{{ url('/produk') }}">Produk</a></li>
+            <li><a href="{{ url('/barangs') }}">Barang</a></li>
             <li><a href="{{ url('/faqs') }}">FAQ</a></li>
         </ul>
     </div>

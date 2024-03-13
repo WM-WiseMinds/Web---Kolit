@@ -21,9 +21,9 @@
                                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                         readonly>
                                 </div>
-                                <div class="col-span-1">
+                                {{-- <div class="col-span-1">
                                     <label for="ukuran" class="form-label">Ukuran</label>
-                                    @if ($ukuranStandar[$keranjangItem->id])
+                                    @if (isset($ukuranStandar[$keranjangItem->id]))
                                         <input type="text" id="ukuran" name="ukuran"
                                             value="{{ $keranjangItem->ukuran->panjang }} cm x {{ $keranjangItem->ukuran->lebar }} cm x {{ $keranjangItem->ukuran->tinggi }} cm"
                                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -34,10 +34,24 @@
                                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                             readonly>
                                     @endif
+                                </div> --}}
+                                <div class="col-span-1">
+                                    <label for="ukuran" class="form-label">Ukuran</label>
+                                    @if (isset($ukuranStandar[$keranjangItem->id]) && $keranjangItem->ukuran)
+                                        <input type="text" id="ukuran" name="ukuran"
+                                            value="{{ $keranjangItem->ukuran->panjang }} cm x {{ $keranjangItem->ukuran->lebar }} cm x {{ $keranjangItem->ukuran->tinggi }} cm"
+                                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                            readonly>
+                                    @elseif($keranjangItem->ukuran_custom)
+                                        <input type="text" id="ukuran" name="ukuran"
+                                            value="{{ $keranjangItem->ukuran_custom->panjang }} cm x {{ $keranjangItem->ukuran_custom->lebar }} cm x {{ $keranjangItem->ukuran_custom->tinggi }} cm"
+                                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                            readonly>
+                                    @endif
                                 </div>
                                 <div class="col-span-1">
                                     <label for="harga" class="form-label">Harga Satuan</label>
-                                    @if ($hargaStandar[$keranjangItem->id])
+                                    @if (isset($hargaStandar[$keranjangItem->id]))
                                         <input type="text" id="ukuran" name="ukuran"
                                             value="{{ $keranjangItem->ukuran->harga }}"
                                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"

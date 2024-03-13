@@ -63,6 +63,8 @@ class KeranjangForm extends ModalComponent
         $validated = $this->validate();
         $this->keranjang->fill($validated);
 
+        $this->keranjang->tipe_ukuran = $this->tipe_ukuran;
+
 
         if ($this->tipe_ukuran === 'standar') {
 

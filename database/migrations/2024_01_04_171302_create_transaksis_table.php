@@ -19,7 +19,7 @@ return new class extends Migration
             // Kolom untuk menyimpan total harga transaksi (angka bulat).
             $table->integer('total_harga');
             // Kolom untuk menyimpan foto bukti pembayaran dengan panjang maksimum 255 karakter.
-            $table->string('bukti_pembayaran', 255);
+            $table->string('bukti_pembayaran', 255)->nullable();
             // Kolom untuk menyimpan status transaksi dengan enum.
             $table->enum('status', ['Pesanan Diproses', 'Pembayaran Dikonfirmasi', 'Pesanan Dikerjakan', 'Pesanan Selesai']);
             // Kolom timestamp otomatis untuk created_at dan updated_at.

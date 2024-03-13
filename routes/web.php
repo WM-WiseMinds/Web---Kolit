@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Barang;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +17,20 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/gallery', function () {
+    return view('gallery');
+});
+
+Route::get('/barangs', function () {
+    $barang = Barang::all();
+    return view('barangs', compact('barang'));
+});
+
+Route::get('/detail-barang/{id}', function ($id) {
+    $barang = Barang::findOrFail($id);
+    return view('detail-barang', compact('barang'));
+})->name('detail-barang');
 
 Route::middleware([
     'auth:sanctum',

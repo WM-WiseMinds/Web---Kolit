@@ -129,11 +129,11 @@ class TransaksiForm extends ModalComponent
             foreach ($this->keranjangItems as $keranjangItem) {
                 $this->ukuranStandar[$keranjangItem->id] = $keranjangItem->ukuran_id != null;
                 $this->ukuranCustom[$keranjangItem->id] = $keranjangItem->ukuran_custom_id != null;
-                $this->hargaStandar[$keranjangItem->id] = $keranjangItem->ukuran->harga;
-                $this->hargaCustom[$keranjangItem->id] = $keranjangItem->ukuran_custom->harga;
                 if ($keranjangItem->ukuran_custom_id) {
+                    $this->hargaCustom[$keranjangItem->id] = $keranjangItem->ukuran_custom->harga;
                     $this->totalHargaItems[$keranjangItem->id] = $keranjangItem->jumlah * $keranjangItem->ukuran_custom->harga;
                 } else {
+                    $this->hargaStandar[$keranjangItem->id] = $keranjangItem->ukuran->harga;
                     $this->totalHargaItems[$keranjangItem->id] = $keranjangItem->jumlah * $keranjangItem->ukuran->harga;
                 }
             }

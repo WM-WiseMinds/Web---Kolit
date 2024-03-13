@@ -3,7 +3,7 @@
         <nav class="grid grid-flow-col gap-4 text-white">
             <a class="link link-hover" href="{{ url('/') }}">Beranda</a>
             <a class="link link-hover" href="{{ url('/portfolios') }}">Portfolio</a>
-            <a class="link link-hover" href="{{ url('/produk') }}">Produk</a>
+            <a class="link link-hover" href="{{ url('/barangs') }}">Barang</a>
             <a class="link link-hover" href="{{ url('/faqs') }}">FAQ</a>
         </nav>
         <aside class="text-white">
