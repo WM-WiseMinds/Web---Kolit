@@ -94,7 +94,7 @@ final class KeranjangTable extends PowerGridComponent
         $actions = [];
 
         // Jika user memiliki permissions delete
-        if (auth()->user()->can('delete')) {
+        if (auth()->user()->can('keranjang')) {
             $actions[] =
                 Button::add('delete')
                 ->slot('<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">

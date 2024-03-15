@@ -51,10 +51,14 @@ final class TransaksiTable extends PowerGridComponent
 
     public function datasource(): Builder
     {
-        return Transaksi::query()
-            ->with(['detailtransaksi'])
-            ->join('users', 'transaksi.user_id', '=', 'users.id')
-            ->select('transaksi.*', 'users.name as name', 'users.id as user_id');;
+        if (auth()->user()->hasRole('Admin')) {
+            return Transaksi::query()
+                ->with(['detailtransaksi', 'user']);
+        } else if (auth()->user()->hasRole('Pelanggan')) {
+            return Transaksi::query()
+                ->with(['detailtransaksi', 'user'])
+                ->where('user_id', auth()->id());
+        }
     }
 
     public function relationSearch(): array
@@ -67,7 +71,7 @@ final class TransaksiTable extends PowerGridComponent
     public function fields(): PowerGridFields
     {
         return PowerGrid::fields()
-            ->add('name')
+            ->add('name', fn ($row) => $row->user->name)
             ->add('total_harga', fn ($row) => 'Rp ' . number_format($row->total_harga, 0, ',', '.'))
             ->add('status')
             ->add('created_at_formatted', fn (Transaksi $model) => Carbon::parse($model->created_at)->format('d/m/Y'));
