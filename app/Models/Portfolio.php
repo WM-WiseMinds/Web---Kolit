@@ -20,11 +20,6 @@ class Portfolio extends Model
         'gambar',
     ];
 
-    // Mendefinisikan tipe data dari kolom 'tanggal_pengerjaan' sebagai 'datetime'.
-    protected $casts = [
-        'tanggal_pengerjaan' => 'datetime',
-    ];
-
     // Mendefinisikan bahwa model 'Portfolio' memiliki relasi "belongsTo" dengan model 'Barang',
     // yang mengindikasikan bahwa setiap Portfolio terkait dengan satu Barang.
     public function barang()

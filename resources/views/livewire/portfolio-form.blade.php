@@ -18,7 +18,7 @@
                         <select wire:model="barang_id"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             placeholder="Pilih Roles">
-                            <option value="" disabled readonly>-- Pilih Barang --
+                            <option value="" readonly>-- Pilih Barang --
                             </option>
                             @foreach ($barangs as $barang)
                                 <option value="{{ $barang->id }}">{{ $barang->nama_barang }}</option>
