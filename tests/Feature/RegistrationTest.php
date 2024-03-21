@@ -14,7 +14,7 @@ class RegistrationTest extends TestCase
 
     public function test_registration_screen_can_be_rendered(): void
     {
-        if (! Features::enabled(Features::registration())) {
+        if (!Features::enabled(Features::registration())) {
             $this->markTestSkipped('Registration support is not enabled.');
         }
 
@@ -36,7 +36,7 @@ class RegistrationTest extends TestCase
 
     public function test_new_users_can_register(): void
     {
-        if (! Features::enabled(Features::registration())) {
+        if (!Features::enabled(Features::registration())) {
             $this->markTestSkipped('Registration support is not enabled.');
         }
 
@@ -50,5 +50,14 @@ class RegistrationTest extends TestCase
 
         $this->assertAuthenticated();
         $response->assertRedirect(RouteServiceProvider::HOME);
+
+        $user = User::where('email', 'test@example.com')->first();
+
+        // Verifikasi bahwa detail pelanggan terkait telah tersimpan dengan benar
+        $this->assertDatabaseHas('detail_pelanggan', [
+            'user_id' => $user->id,
+            'no_wa' => '08123456789', // Ganti dengan nilai yang sesuai
+            'alamat' => 'Alamat contoh',
+        ]);
     }
 }
