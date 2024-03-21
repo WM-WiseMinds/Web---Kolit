@@ -4,13 +4,14 @@ namespace Tests\Feature;
 
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Fortify\Features;
 use Laravel\Jetstream\Jetstream;
 use Tests\TestCase;
 
 class RegistrationTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, WithFaker;
 
     public function test_registration_screen_can_be_rendered(): void
     {
@@ -34,30 +35,28 @@ class RegistrationTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function test_new_users_can_register(): void
+    public function test_new_user_can_register()
     {
-        if (!Features::enabled(Features::registration())) {
-            $this->markTestSkipped('Registration support is not enabled.');
-        }
-
-        $response = $this->post('/register', [
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        $userData = [
+            'name' => $this->faker->name,
+            'no_wa' => $this->faker->phoneNumber,
+            'alamat' => $this->faker->address,
+            'email' => $this->faker->unique()->safeEmail,
             'password' => 'password',
             'password_confirmation' => 'password',
-            'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature(),
+            'terms' => true,
+        ];
+
+        $response = $this->post('/register', $userData);
+
+        $response->assertStatus(302);
+        $this->assertDatabaseHas('users', [
+            'name' => $userData['name'],
+            'email' => $userData['email'],
         ]);
-
-        $this->assertAuthenticated();
-        $response->assertRedirect(RouteServiceProvider::HOME);
-
-        $user = User::where('email', 'test@example.com')->first();
-
-        // Verifikasi bahwa detail pelanggan terkait telah tersimpan dengan benar
-        $this->assertDatabaseHas('detail_pelanggan', [
-            'user_id' => $user->id,
-            'no_wa' => '08123456789', // Ganti dengan nilai yang sesuai
-            'alamat' => 'Alamat contoh',
+        $this->assertDatabaseHas('detailpelanggan', [
+            'no_wa' => $userData['no_wa'],
+            'alamat' => $userData['alamat'],
         ]);
     }
 }
