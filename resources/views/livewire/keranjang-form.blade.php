@@ -61,9 +61,11 @@
                                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 wire:change='getHarga'>
                                 <option value="">Pilih Ukuran</option>
-                                @foreach ($ukuran as $item)
-                                    <option value="{{ $item->id }}">{{ $item->ukuran }}</option>
-                                @endforeach
+                                @if ($ukuran)
+                                    @foreach ($ukuran as $item)
+                                        <option value="{{ $item->id }}">{{ $item->ukuran }}</option>
+                                    @endforeach
+                                @endif
                             </select>
                         </div>
                         <div class="form-group mt-4">
