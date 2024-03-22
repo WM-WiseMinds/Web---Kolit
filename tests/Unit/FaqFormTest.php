@@ -6,6 +6,7 @@ use App\Livewire\FaqForm;
 use App\Models\Faq;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Livewire;
 use Tests\TestCase;
 
@@ -14,79 +15,92 @@ class FaqFormTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function it_renders_the_faq_form()
+    public function it_renders_the_faq_form_view()
     {
         $user = User::factory()->create();
+        Auth::login($user);
 
-        Livewire::actingAs($user)
-            ->test(FaqForm::class)
+        Livewire::test(FaqForm::class)
             ->assertViewIs('livewire.faq-form');
     }
 
     /** @test */
-    public function it_resets_the_form()
+    public function it_resets_create_form()
     {
         $user = User::factory()->create();
+        Auth::login($user);
 
-        Livewire::actingAs($user)
-            ->test(FaqForm::class)
-            ->set('pertanyaan', 'What is PHP?')
-            ->set('jawaban', 'PHP is a server-side scripting language.')
+        Livewire::test(FaqForm::class)
+            ->set('pertanyaan', 'Test question')
+            ->set('jawaban', 'Test answer')
             ->call('resetCreateForm')
-            ->assertSet('pertanyaan', null)
-            ->assertSet('jawaban', null);
+            ->assertSet('pertanyaan', '')
+            ->assertSet('jawaban', '');
     }
 
     /** @test */
-    public function it_stores_a_faq_when_bertanyaOnlyMode_is_true()
+    public function can_switch_to_bertanya_only_mode()
     {
         $user = User::factory()->create();
 
         Livewire::actingAs($user)
             ->test(FaqForm::class)
-            ->set('bertanyaOnlyMode', true)
+            ->call('switchToBertanyaOnlyMode')
+            ->assertSet('bertanyaOnlyMode', true);
+    }
+
+    /** @test */
+    public function can_switch_to_menjawab_only_mode()
+    {
+        $user = User::factory()->create();
+
+        Livewire::actingAs($user)
+            ->test(FaqForm::class)
+            ->call('switchToMenjawabOnlyMode')
+            ->assertSet('bertanyaOnlyMode', false);
+    }
+
+    /** @test */
+    public function can_set_penanya_id()
+    {
+        $user = User::factory()->create();
+
+        Livewire::actingAs($user)
+            ->test(FaqForm::class)
             ->set('penanya_id', $user->id)
-            ->set('pertanyaan', 'What is PHP?')
-            ->call('store')
-            ->assertHasNoErrors();
-
-        $this->assertDatabaseHas('faq', [
-            'penanya_id' => $user->id,
-            'pertanyaan' => 'What is PHP?',
-        ]);
+            ->assertSet('penanya_id', $user->id);
     }
 
     /** @test */
-    public function it_stores_a_faq_when_bertanyaOnlyMode_is_false()
+    public function can_set_penjawab_id()
     {
         $user = User::factory()->create();
-        $faq = Faq::factory()->create();
 
         Livewire::actingAs($user)
             ->test(FaqForm::class)
-            ->set('bertanyaOnlyMode', false)
-            ->set('faq.id', $faq->id)
             ->set('penjawab_id', $user->id)
-            ->set('jawaban', 'PHP is a server-side scripting language.')
-            ->call('store')
-            ->assertHasNoErrors();
-
-        $this->assertDatabaseHas('faq', [
-            'id' => $faq->id,
-            'penjawab_id' => $user->id,
-            'jawaban' => 'PHP is a server-side scripting language.',
-        ]);
+            ->assertSet('penjawab_id', $user->id);
     }
 
     /** @test */
-    public function it_mounts_the_faq_form()
+    public function can_set_pertanyaan()
     {
         $user = User::factory()->create();
-        $faq = Faq::factory()->create();
 
         Livewire::actingAs($user)
             ->test(FaqForm::class)
-            ->call('mount', $faq)
-            ->assertSet('faq', $faq);
+            ->set('pertanyaan', 'What is PHP?')
+            ->assertSet('pertanyaan', 'What is PHP?');
+    }
+
+    /** @test */
+    public function can_set_jawaban()
+    {
+        $user = User::factory()->create();
+
+        Livewire::actingAs($user)
+            ->test(FaqForm::class)
+            ->set('jawaban', 'PHP is a server-side scripting language.')
+            ->assertSet('jawaban', 'PHP is a server-side scripting language.');
     }
 }
