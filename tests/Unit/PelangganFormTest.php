@@ -60,4 +60,38 @@ class PelangganFormTest extends TestCase
             'no_wa' => '1234567890',
         ]);
     }
+
+    /** @test */
+    public function it_updates_an_existing_detail_pelanggan()
+    {
+        $user = User::factory()->create();
+        $detailPelanggan = Detailpelanggan::factory()->create(['user_id' => $user->id]);
+
+        $component = Livewire::actingAs($user)
+            ->test(PelangganForm::class)
+            ->set('user_id', $user->id)
+            ->set('alamat', 'Updated Address')
+            ->set('no_wa', '0987654321');
+
+        $component->call('store');
+
+        $this->assertDatabaseHas('detailpelanggan', [
+            'user_id' => $user->id,
+            'alamat' => 'Updated Address',
+            'no_wa' => '0987654321',
+        ]);
+    }
+
+    /** @test */
+    public function it_mounts_with_existing_detail_pelanggan()
+    {
+        $user = User::factory()->create();
+        $detailPelanggan = Detailpelanggan::factory()->create(['user_id' => $user->id]);
+
+        $component = Livewire::test(PelangganForm::class, ['rowId' => $detailPelanggan->id]);
+
+        $this->assertEquals($detailPelanggan->user_id, $component->get('user_id'));
+        $this->assertEquals($detailPelanggan->alamat, $component->get('alamat'));
+        $this->assertEquals($detailPelanggan->no_wa, $component->get('no_wa'));
+    }
 }
