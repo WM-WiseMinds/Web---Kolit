@@ -45,12 +45,12 @@ class UkuranFormTest extends TestCase
     }
 
     /** @test */
-    public function it_stores_a_new_ukuran()
+    public function it_creates_a_new_ukuran()
     {
         // Create a barang
         $barang = Barang::factory()->create();
 
-        // Test UkuranForm store method
+        // Test UkuranForm store method for creating a new ukuran
         Livewire::test(UkuranForm::class)
             ->set('barang_id', $barang->id)
             ->set('ukuranItems', [
@@ -74,6 +74,40 @@ class UkuranFormTest extends TestCase
             'tinggi' => 10,
             'stock' => 10,
             'harga' => 1000,
+        ]);
+    }
+
+    /** @test */
+    public function it_updates_an_existing_ukuran()
+    {
+        // Create a ukuran
+        $ukuran = Ukuran::factory()->create();
+
+        // Test UkuranForm store method for updating an existing ukuran
+        Livewire::test(UkuranForm::class, ['ukuran_id' => $ukuran->id])
+            ->set('barang_id', $ukuran->barang_id)
+            ->set('ukuranItems', [
+                [
+                    'ukuran' => 'Updated Ukuran',
+                    'panjang' => 20,
+                    'lebar' => 20,
+                    'tinggi' => 20,
+                    'stock' => 20,
+                    'harga' => 2000,
+                ]
+            ])
+            ->call('store');
+
+        // Assert the ukuran was updated
+        $this->assertDatabaseHas('ukuran', [
+            'id' => $ukuran->id,
+            'barang_id' => $ukuran->barang_id,
+            'ukuran' => 'Updated Ukuran',
+            'panjang' => 20,
+            'lebar' => 20,
+            'tinggi' => 20,
+            'stock' => 20,
+            'harga' => 2000,
         ]);
     }
 
