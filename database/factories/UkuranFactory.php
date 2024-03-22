@@ -18,7 +18,9 @@ class UkuranFactory extends Factory
     public function definition(): array
     {
         return [
-            'barang_id' => Barang::inRandomOrder()->first()->id,
+            'barang_id' => function () {
+                return Barang::factory()->create()->id;
+            },
             'ukuran' => $this->faker->randomElement(['Besar', 'Sedang', 'Kecil']),
             'panjang' => $this->faker->numberBetween(10, 100),
             'lebar' => $this->faker->numberBetween(10, 100),

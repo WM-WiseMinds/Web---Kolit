@@ -45,7 +45,7 @@ class UkuranForm extends ModalComponent
 
     public function resetForm()
     {
-        $this->reset(['barang_id', 'ukuran', 'deskripsi', 'stock', 'harga']);
+        $this->reset(['barang_id', 'ukuranItems']);
     }
 
     public function store()
