@@ -142,6 +142,7 @@ class TransaksiForm extends ModalComponent
 
     public function mount($rowId = null, $updatingStatusOnly = false, $keranjangIds = null, $updatingPembayaranOnly = false)
     {
+        $this->keranjangItems = collect();
         $this->keranjangIds = $keranjangIds;
         $this->updatingStatusOnly = $updatingStatusOnly;
         $this->updatingPembayaranOnly = $updatingPembayaranOnly;

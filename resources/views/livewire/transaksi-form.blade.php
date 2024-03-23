@@ -5,59 +5,61 @@
                 @if (!$updatingStatusOnly && !$updatingPembayaranOnly)
                     <input type="hidden" wire:model="user_id">
                     <div class="mb-4">
-                        @foreach ($keranjangItems as $keranjangItem)
-                            <div class="grid grid-cols-2 gap-4 mb-2 w-full">
-                                <div class="col-span-2">
-                                    <label for="nama_barang" class="form-label">Nama Barang</label>
-                                    <input type="text" id="nama_barang" name="nama_barang"
-                                        value="{{ $keranjangItem->barang->nama_barang }}"
-                                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                        readonly>
-                                </div>
-                                <div class="col-span-1">
-                                    <label for="jumlah" class="form-label">Jumlah</label>
-                                    <input type="number" id="jumlah" name="jumlah"
-                                        value="{{ $keranjangItem->jumlah }}"
-                                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                        readonly>
-                                </div>
-                                <div class="col-span-1">
-                                    <label for="ukuran" class="form-label">Ukuran</label>
-                                    @if (isset($ukuranStandar[$keranjangItem->id]) && $keranjangItem->ukuran)
-                                        <input type="text" id="ukuran" name="ukuran"
-                                            value="{{ $keranjangItem->ukuran->panjang }} cm x {{ $keranjangItem->ukuran->lebar }} cm x {{ $keranjangItem->ukuran->tinggi }} cm"
+                        @if (!empty($keranjangItems))
+                            @foreach ($keranjangItems as $keranjangItem)
+                                <div class="grid grid-cols-2 gap-4 mb-2 w-full">
+                                    <div class="col-span-2">
+                                        <label for="nama_barang" class="form-label">Nama Barang</label>
+                                        <input type="text" id="nama_barang" name="nama_barang"
+                                            value="{{ $keranjangItem->barang->nama_barang }}"
                                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                             readonly>
-                                    @elseif($keranjangItem->ukuran_custom)
-                                        <input type="text" id="ukuran" name="ukuran"
-                                            value="{{ $keranjangItem->ukuran_custom->panjang }} cm x {{ $keranjangItem->ukuran_custom->lebar }} cm x {{ $keranjangItem->ukuran_custom->tinggi }} cm"
+                                    </div>
+                                    <div class="col-span-1">
+                                        <label for="jumlah" class="form-label">Jumlah</label>
+                                        <input type="number" id="jumlah" name="jumlah"
+                                            value="{{ $keranjangItem->jumlah }}"
                                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                             readonly>
-                                    @endif
-                                </div>
-                                <div class="col-span-1">
-                                    <label for="harga" class="form-label">Harga Satuan</label>
-                                    @if (isset($hargaStandar[$keranjangItem->id]))
-                                        <input type="text" id="ukuran" name="ukuran"
-                                            value="{{ $keranjangItem->ukuran->harga }}"
+                                    </div>
+                                    <div class="col-span-1">
+                                        <label for="ukuran" class="form-label">Ukuran</label>
+                                        @if (isset($ukuranStandar[$keranjangItem->id]) && $keranjangItem->ukuran)
+                                            <input type="text" id="ukuran" name="ukuran"
+                                                value="{{ $keranjangItem->ukuran->panjang }} cm x {{ $keranjangItem->ukuran->lebar }} cm x {{ $keranjangItem->ukuran->tinggi }} cm"
+                                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                                readonly>
+                                        @elseif($keranjangItem->ukuran_custom)
+                                            <input type="text" id="ukuran" name="ukuran"
+                                                value="{{ $keranjangItem->ukuran_custom->panjang }} cm x {{ $keranjangItem->ukuran_custom->lebar }} cm x {{ $keranjangItem->ukuran_custom->tinggi }} cm"
+                                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                                readonly>
+                                        @endif
+                                    </div>
+                                    <div class="col-span-1">
+                                        <label for="harga" class="form-label">Harga Satuan</label>
+                                        @if (isset($hargaStandar[$keranjangItem->id]))
+                                            <input type="text" id="ukuran" name="ukuran"
+                                                value="{{ $keranjangItem->ukuran->harga }}"
+                                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                                readonly>
+                                        @else
+                                            <input type="text" id="ukuran" name="ukuran"
+                                                value="{{ $keranjangItem->ukuran_custom->harga }}"
+                                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                                readonly>
+                                        @endif
+                                    </div>
+                                    <div class="col-span-1">
+                                        <label for="total_harga" class="form-label">Total Harga</label>
+                                        <input type="text" id="total_harga" name="total_harga"
+                                            value="{{ $totalHargaItems[$keranjangItem->id] }}"
                                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                             readonly>
-                                    @else
-                                        <input type="text" id="ukuran" name="ukuran"
-                                            value="{{ $keranjangItem->ukuran_custom->harga }}"
-                                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                            readonly>
-                                    @endif
+                                    </div>
                                 </div>
-                                <div class="col-span-1">
-                                    <label for="total_harga" class="form-label">Total Harga</label>
-                                    <input type="text" id="total_harga" name="total_harga"
-                                        value="{{ $totalHargaItems[$keranjangItem->id] }}"
-                                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                        readonly>
-                                </div>
-                            </div>
-                        @endforeach
+                            @endforeach
+                        @endif
                     </div>
 
                     <div class="mb-4">

@@ -2,24 +2,21 @@
 
 namespace Tests\Unit;
 
-use App\Livewire\TransaksiForm;
-use App\Models\Transaksi;
-use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Livewire\Livewire;
 use Tests\TestCase;
+use App\Models\User;
+use Livewire\Livewire;
+use App\Models\Keranjang;
+use App\Models\Transaksi;
+use App\Livewire\TransaksiForm;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class TransaksiFormTest extends TestCase
 {
     use RefreshDatabase;
 
     /** @test */
-    public function it_renders_component_succesfully()
+    public function transaksi_form_component_renders_correctly()
     {
-        // Create a User instance
-        User::factory()->create();
-
-        // Test TransaksiForm render method
         Livewire::test(TransaksiForm::class)
             ->assertStatus(200);
     }
