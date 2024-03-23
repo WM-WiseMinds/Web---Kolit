@@ -16,6 +16,14 @@ class PortflioFormTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
+    public function it_renders_component_succesfully()
+    {
+        // Test PortfolioForm render method
+        Livewire::test(PortfolioForm::class)
+            ->assertStatus(200);
+    }
+
+    /** @test */
     public function it_mounts_with_an_existing_portfolio()
     {
         // Create a barang
