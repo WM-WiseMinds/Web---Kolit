@@ -147,20 +147,41 @@ class TransaksiForm extends ModalComponent
         $this->updatingStatusOnly = $updatingStatusOnly;
         $this->updatingPembayaranOnly = $updatingPembayaranOnly;
         $this->user = User::all();
-        if ($rowId) {
+        // if ($rowId) {
+        //     $this->transaksi = Transaksi::find($rowId);
+
+        //     if ($updatingStatusOnly) {
+        //         $this->status = $this->transaksi->status;
+        //     } else if ($updatingPembayaranOnly) {
+        //         $this->bukti_pembayaran = $this->transaksi->bukti_pembayaran;
+
+        //         if ($this->bukti_pembayaran) {
+        //             $this->bukti_pembayaran_url = Storage::disk('public')->url($this->bukti_pembayaran);
+        //         }
+        //     }
+        //     $this->user_id = $this->transaksi->user_id;
+        //     $this->total_harga = $this->transaksi->total_harga;
+        // }
+
+        if (!is_null($rowId)) {
             $this->transaksi = Transaksi::find($rowId);
 
-            if ($updatingStatusOnly) {
+            if ($this->transaksi) {
+                // Inisialisasi properti berdasarkan transaksi yang ditemukan.
+                $this->user_id = $this->transaksi->user_id;
+                $this->total_harga = $this->transaksi->total_harga;
                 $this->status = $this->transaksi->status;
-            } else if ($updatingPembayaranOnly) {
                 $this->bukti_pembayaran = $this->transaksi->bukti_pembayaran;
 
+                // Jika ada bukti pembayaran, dapatkan URL-nya.
                 if ($this->bukti_pembayaran) {
                     $this->bukti_pembayaran_url = Storage::disk('public')->url($this->bukti_pembayaran);
                 }
+            } else {
+                // Jika transaksi tidak ditemukan, bisa menetapkan default value atau menampilkan error.
+                $this->resetCreateForm();
+                // Optional: Tambahkan pesan error atau logika lainnya di sini.
             }
-            $this->user_id = $this->transaksi->user_id;
-            $this->total_harga = $this->transaksi->total_harga;
         }
 
         if ($keranjangIds) {

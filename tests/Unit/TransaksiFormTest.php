@@ -21,30 +21,57 @@ class TransaksiFormTest extends TestCase
             ->assertStatus(200);
     }
 
-    // /** @test */
-    // public function it_switches_to_status_only_mode()
-    // {
-    //     // Test TransaksiForm switchToStatusOnlyMode method
-    //     Livewire::test(TransaksiForm::class)
-    //         ->call('switchToStatusOnlyMode')
-    //         ->assertSet('updatingStatusOnly', true);
-    // }
+    /** @test */
+    public function can_store_new_transaksi_data()
+    {
+        $user = User::factory()->create();
+        $keranjangItems = Keranjang::factory()->count(3)->create(['user_id' => $user->id]);
 
-    // /** @test */
-    // public function it_switches_to_create_or_update_mode()
-    // {
-    //     // Test TransaksiForm switchToCreateOrUpdateMode method
-    //     Livewire::test(TransaksiForm::class)
-    //         ->call('switchToCreateOrUpdateMode')
-    //         ->assertSet('updatingStatusOnly', false);
-    // }
+        Livewire::actingAs($user)
+            ->test(TransaksiForm::class, ['keranjangIds' => $keranjangItems->pluck('id')->toArray()])
+            ->set('user_id', $user->id)
+            ->set('total_harga', 100000)
+            ->set('status', 'Pesanan Diproses')
+            ->call('store')
+            ->assertHasNoErrors();
 
-    // /** @test */
-    // public function it_switches_to_pembayaran_only_mode()
-    // {
-    //     // Test TransaksiForm switchToPembayaranOnlyMode method
-    //     Livewire::test(TransaksiForm::class)
-    //         ->call('switchToPembayaranOnlyMode')
-    //         ->assertSet('updatingPembayaranOnly', true);
-    // }
+        $this->assertTrue(Transaksi::where('user_id', $user->id)->exists());
+    }
+
+    /** @test */
+    public function can_update_transaksi_status()
+    {
+        $transaksi = Transaksi::factory()->create(['status' => 'Pesanan Diproses']);
+
+        Livewire::test(TransaksiForm::class, ['rowId' => $transaksi->id])
+            ->call('switchToStatusOnlyMode')
+            ->set('status', 'Pembayaran Diterima')
+            ->call('store')
+            ->assertHasNoErrors();
+
+        $updatedTransaksi = Transaksi::find($transaksi->id);
+        $this->assertEquals('Pembayaran Diterima', $updatedTransaksi->status);
+    }
+
+    /** @test */
+    public function can_reset_create_form()
+    {
+        Livewire::test(TransaksiForm::class)
+            ->set('total_harga', 100000)
+            ->set('status', 'Pesanan Diproses')
+            ->call('resetCreateForm')
+            ->assertSet('total_harga', '')
+            ->assertSet('status', '');
+    }
+
+    /** @test */
+    public function component_mounts_with_existing_transaksi_data()
+    {
+        $transaksi = Transaksi::factory()->create();
+
+        Livewire::test(TransaksiForm::class, ['rowId' => $transaksi->id])
+            ->assertSet('user_id', $transaksi->user_id)
+            ->assertSet('total_harga', $transaksi->total_harga)
+            ->assertSet('status', $transaksi->status);
+    }
 }
