@@ -13,23 +13,27 @@ class Faq extends Model
 
     // Mendefinisikan kolom-kolom yang dapat diisi (fillable) pada model 'Faq'.
     protected $fillable = [
-        'user_id',
-        'tanggal_dibuat',
-        'tanggal_diperbarui',
+        'penanya_id',
+        'penjawab_id',
         'pertanyaan',
         'jawaban',
     ];
 
-    // Mendefinisikan tipe data dari kolom 'pertanyaan' dan 'jawaban' sebagai 'text'.
-    protected $casts = [
-        'pertanyaan' => 'text',
-        'jawaban' => 'text',
-    ];
-
-    // Mendefinisikan bahwa model 'Faq' memiliki relasi "belongsTo" dengan model 'User',
-    // yang mengindikasikan bahwa setiap Faq "milik" satu User.
-    public function user()
+    /**
+     * Mendefinisikan relasi antara model 'Faq' dengan model 'User'.
+     * Relasi ini menunjukkan bahwa satu pertanyaan hanya dimiliki oleh satu user.
+     */
+    public function penanya()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'penanya_id');
+    }
+
+    /**
+     * Mendefinisikan relasi antara model 'Faq' dengan model 'User'.
+     * Relasi ini menunjukkan bahwa satu jawaban hanya dimiliki oleh satu user.
+     */
+    public function penjawab()
+    {
+        return $this->belongsTo(User::class, 'penjawab_id');
     }
 }

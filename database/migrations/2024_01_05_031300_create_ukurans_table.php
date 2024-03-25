@@ -15,15 +15,19 @@ return new class extends Migration
             // Kolom 'id' digunakan sebagai primary key (kunci utama) untuk memberikan identifikasi unik kepada setiap barang dalam tabel.
             $table->id();
             // Kolom 'barang_id' adalah kunci luar (foreign key) yang terhubung dengan tabel 'barang'.
-            $table->foreignId('barang_id')->constrained('barang');
-            // Kolom 'ukuran' digunakan untuk menyimpan ukuran barang dengan panjang maksimum 50 karakter.
-            $table->string('ukuran', 50);
-            // Kolom 'stock' digunakan untuk menyimpan jumlah stok barang dalam bentuk angka bulat.
+            $table->foreignId('barang_id')->constrained('barang')->onDelete('cascade');
+            // Kolom 'ukuran' digunakan untuk menyimpan ukuran lebih lanjut mengenai barang dalam bentuk teks.
+            $table->text('ukuran');
+            // Kolom 'panjang' digunakan untuk menyimpan panjang ukuran barang dengan tipe data integer.
+            $table->integer('panjang');
+            // Kolom 'lebar' digunakan untuk menyimpan lebar ukuran barang dengan tipe data integer.
+            $table->integer('lebar');
+            // Kolom 'tinggi' digunakan untuk menyimpan tinggi ukuran barang dengan tipe data integer.
+            $table->integer('tinggi');
+            // Kolom 'stock' digunakan untuk menyimpan stok ukuran barang dengan tipe data integer.
             $table->integer('stock');
-            // Kolom 'harga' digunakan untuk menyimpan harga barang dalam bentuk angka bulat.
+            // Kolom 'harga' digunakan untuk menyimpan harga ukuran barang dengan tipe data integer.
             $table->integer('harga');
-            // Kolom 'deskripsi' digunakan untuk menyimpan deskripsi lebih lanjut mengenai barang dalam bentuk teks.
-            $table->text('deskripsi');
             // Kolom 'timestamps' otomatis mencakup dua timestamp datetime, yaitu 'created_at' dan 'updated_at', untuk melacak waktu pembuatan dan pembaruan barang.
             $table->timestamps();
         });

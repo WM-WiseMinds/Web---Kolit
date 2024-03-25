@@ -19,7 +19,7 @@
                         {{ $user->email }}
                     </td>
                     <td style="border: 1px solid black; padding: 5px; text-align: left;">
-                        {{ $user->role_name }}
+                        {{ $user->roles->pluck('name')->implode(', ') }}
                     </td>
                     <td style="border: 1px solid black; padding: 5px; text-align: left;">
                         {{ $user->created_at }}

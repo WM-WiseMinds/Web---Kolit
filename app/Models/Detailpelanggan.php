@@ -9,7 +9,7 @@ class Detailpelanggan extends Model
 {
     use HasFactory;
 
-   // Mendefinisikan nama tabel yang terkait dengan model 'DetailPelanggan' menjadi 'detailpelanggan'.
+    // Mendefinisikan nama tabel yang terkait dengan model 'DetailPelanggan' menjadi 'detailpelanggan'.
     protected $table = 'detailpelanggan';
 
     // Mendefinisikan kolom-kolom yang dapat diisi (fillable) pada model 'DetailPelanggan'.
@@ -17,7 +17,6 @@ class Detailpelanggan extends Model
         'user_id',
         'no_wa',
         'alamat',
-        'tanggal_trakhir',
     ];
 
     // Mendefinisikan bahwa model 'DetailPelanggan' memiliki relasi "belongsTo" dengan model 'User',
